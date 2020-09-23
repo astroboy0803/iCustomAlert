@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.textField.returnKeyType = .done
         self.textField.borderStyle = .bezel
+        self.textField.font = UIFont(name: "a0", size: 24)
     }
 
     @IBAction func showAlert(_ sender: UIButton) {
