@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47B0D35F251B9AE7002E7670 /* eudc.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 47B0D329251B976A002E7670 /* eudc.ttf */; };
+		7556FACA251C432700863382 /* InputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7556FAC9251C432700863382 /* InputManager.swift */; };
 		755BD8BB24220C6600F9E7D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755BD8BA24220C6600F9E7D3 /* AppDelegate.swift */; };
 		755BD8BF24220C6600F9E7D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755BD8BE24220C6600F9E7D3 /* ViewController.swift */; };
 		755BD8C224220C6600F9E7D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 755BD8C024220C6600F9E7D3 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		47B0D329251B976A002E7670 /* eudc.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = eudc.ttf; sourceTree = "<group>"; };
+		7556FAC9251C432700863382 /* InputManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputManager.swift; sourceTree = "<group>"; };
 		755BD8B724220C6600F9E7D3 /* iCustomAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCustomAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		755BD8BA24220C6600F9E7D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		755BD8BE24220C6600F9E7D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				47B0D325251B9736002E7670 /* Fonts */,
 				755BD8BA24220C6600F9E7D3 /* AppDelegate.swift */,
 				755BD8BE24220C6600F9E7D3 /* ViewController.swift */,
+				7556FAC9251C432700863382 /* InputManager.swift */,
 				755BD8C024220C6600F9E7D3 /* Main.storyboard */,
 				755BD8C324220C6800F9E7D3 /* Assets.xcassets */,
 				755BD8C524220C6800F9E7D3 /* LaunchScreen.storyboard */,
@@ -268,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7556FACA251C432700863382 /* InputManager.swift in Sources */,
 				755BD8BF24220C6600F9E7D3 /* ViewController.swift in Sources */,
 				755BD8BB24220C6600F9E7D3 /* AppDelegate.swift in Sources */,
 			);

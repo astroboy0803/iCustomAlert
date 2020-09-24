@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     private weak var alert: UIAlertController?
     
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: CustomTextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
