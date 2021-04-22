@@ -23,9 +23,20 @@ class ViewController: UIViewController {
         self.textField.returnKeyType = .done
         self.textField.borderStyle = .bezel
         self.textField.font = UIFont(name: "a0", size: 24)
+        self.textField.delegate = self
     }
-
+    
     @IBAction func showAlert(_ sender: UIButton) {
+        // Detect textField value change
+        // 方法1. textField.delegate.textFieldDidChangeSelection > iOS 13後才能使用
+        // 方法2 textField.addTarget > 不限iOS版本
+        // 兩種方式直接修改text都不會觸發
+        // 方法2 透過sendAction來達成目的
+        
+        self.textField.text = "你好嗎"
+        self.textField.sendActions(for: .editingChanged)
+        return
+        
         let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         alert.addTextField { [unowned self] (textField) in
             // 設定textfield型態
