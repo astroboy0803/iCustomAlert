@@ -17,12 +17,20 @@ class ViewController: UIViewController {
     private weak var alert: UIAlertController?
     
     @IBOutlet weak var textField: CustomTextField!
+    
+    @IBOutlet weak var secTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.textField.returnKeyType = .done
-        self.textField.borderStyle = .bezel
-        self.textField.font = UIFont(name: "a0", size: 24)
+        
+        secTextField.text = "abc"
+        self.textField.returnKeyType = .search
+//        self.textField.returnKeyType = .done
+        self.textField.borderStyle = .roundedRect
+//        self.textField.font = UIFont(name: "a0", size: 24)
+        
+        textField.addTarget(self, action: #selector(closing(sender:)), for: .editingDidEndOnExit)
+        
         self.textField.delegate = self
     }
     
@@ -33,9 +41,9 @@ class ViewController: UIViewController {
         // 兩種方式直接修改text都不會觸發
         // 方法2 透過sendAction來達成目的
         
-        self.textField.text = "你好嗎"
-        self.textField.sendActions(for: .editingChanged)
-        return
+//        self.textField.text = "你好嗎"
+//        self.textField.sendActions(for: .editingChanged)
+//        return
         
         let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         alert.addTextField { [unowned self] (textField) in
@@ -71,7 +79,7 @@ class ViewController: UIViewController {
         let title = NSMutableAttributedString(string: "請再次輸入您的身分證字號\n輸入完成請按下Enter", attributes: [.font: UIFont.boldSystemFont(ofSize: 18), .foregroundColor: UIColor.red])
         alert.setValue(title, forKey: "attributedTitle")
 
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { [unowned self] (_) in
+        let cancelAction = UIAlertAction(title: "取消", style: .default) { [unowned self] (_) in
             if #available(iOS 13.0, *) {
                 // iOS 13開始在delegate新增textFieldDidChangeSelection方法，並在完成後會呼叫(故實在delegate上)
             } else {
@@ -87,11 +95,12 @@ class ViewController: UIViewController {
                 alert.textFields?.first?.removeTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
             }
         }
-        okAction.isEnabled = false
+//        okAction.isEnabled = false
         self.okAction = okAction
         for action in [cancelAction, okAction] {
             alert.addAction(action)
         }
+        alert.preferredAction = okAction
         self.alert = alert
         
 //        // 檢核外框1 - 爬上層的view & 多個textfield有點醜
@@ -158,6 +167,12 @@ class ViewController: UIViewController {
         // textfield自己使用 - 方法4
         
     }
+    
+    @objc
+    func closing(sender: UITextField) {
+        print(">>>>")
+        //sender.resignFirstResponder()
+    }
 }
 
 extension ViewController: UITextFieldDelegate {
@@ -191,6 +206,18 @@ extension ViewController: UITextFieldDelegate {
     
     // MARK: 輸入文字是否顯示(return ture 為需顯示且會觸發textFieldDidChangeSelection)
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        var str = textField.text ?? ""
+        let sIndex = str.index(str.startIndex, offsetBy: range.location)
+        let eIndex = str.index(sIndex, offsetBy: range.length)
+        let nRange = sIndex..<eIndex
+        let aRange = Range(range, in: str)
+        
+        print(nRange.lowerBound == aRange?.lowerBound)
+        print(nRange.upperBound == aRange?.upperBound)
+//        str.replaceSubrange(aRange!, with: string)
+        str.replaceSubrange(nRange, with: string)
+        
         print("\(#function)")
         // 異動後textfield新長度 = textField內的文字長度 + 新輸入的長度 - 刪除長度
         let newStrLeng = (textField.text?.count ?? 0) + string.count - range.length
@@ -221,8 +248,17 @@ extension ViewController: UITextFieldDelegate {
     }
 
     // MARK: 按下return鍵(enter)
+    // return false -> 事件不往下傳, 故 textfield 監控 editingDidEndOnExit 時, 不會被觸發; 反之, true 就會把事件往下傳, 即會觸發 editingDidEndOnExit
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+//        return false
+        return true
+        
         print("\(#function)")
+//        view.endEditing(true)
+//        textField.resignFirstResponder()
+//        return false
+        
         let text = textField.text ?? ""
         let isOK = text.range(of: "^[a-zA-Z0-9]{10}$", options: .regularExpression, range: nil, locale: nil) != nil
         self.okAction?.isEnabled = isOK
